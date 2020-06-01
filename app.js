@@ -8,16 +8,17 @@ const perimeter = circle.getAttribute("r") * 2 * Math.PI;
 circle.setAttribute("stroke-dasharray", perimeter);
 
 let offset = 0;
+let duration = 0;
 
 //initiating the instance
 const timer = new Timer(durationInput, startButton, pauseButton, {
   //callbacks - for dividing the function groups
-  onStart() {
-    console.log("timer started");
+  onStart(totalDuration) {
+    duration = totalDuration;
   },
-  onTick() {
-    offset -= 1;
-    circle.setAttribute("stroke-dashoffset", offset);
+  onTick(timeRemaining) {
+    circle.setAttribute("stroke-dashoffset",
+    perimeter * timeRemaining / duration - perimeter);
   },
   onComplete() {
     console.log("timer completed");
